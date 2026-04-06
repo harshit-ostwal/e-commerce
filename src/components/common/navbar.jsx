@@ -5,7 +5,6 @@ import {
     Loader2,
     LogOut,
     MapPinCheckInside,
-    Search,
     ShoppingBag,
     Trash2,
     User2,
@@ -131,9 +130,6 @@ function Navbar() {
                 ))}
             </div>
             <div className="flex items-center gap-6 flex-1 justify-end">
-                <Button size="icon" variant="none">
-                    <Search />
-                </Button>
                 <Button
                     onClick={() => navigate("/my/whishlist")}
                     size="icon"

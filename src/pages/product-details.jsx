@@ -43,6 +43,10 @@ function ProductDetails() {
         stock,
     } = product;
 
+    useEffect(() => {
+        document.title = `EzStore — ${title}`;
+    }, [title]);
+
     const {
         addToCart,
         findProductInWhishlist,

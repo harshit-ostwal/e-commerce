@@ -23,6 +23,11 @@ import ContactSchema from "@/schema/contact/contact";
 
 function Contact() {
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        document.title = "EzStore — Contact";
+    }, []);
+
     const contactForm = useForm({
         resolver: zodResolver(ContactSchema),
         defaultValues: {

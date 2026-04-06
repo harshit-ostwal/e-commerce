@@ -36,6 +36,10 @@ function SignUp() {
     const { signUp } = useAuth();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "EzStore — Sign Up";
+    }, []);
+
     const signUpForm = useForm({
         resolver: zodResolver(SignUpSchema),
         defaultValues: {

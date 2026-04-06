@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router";
 import {
     Breadcrumb,
@@ -16,6 +16,10 @@ const categoryMeta = Object.fromEntries(
 
 function Categories() {
     const { categories } = useLoaderData();
+
+    useEffect(() => {
+        document.title = "EzStore — Categories";
+    }, []);
 
     return (
         <div className="flex flex-col gap-10 pb-20">

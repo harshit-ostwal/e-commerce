@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 import ProductCard from "@/components/common/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,11 @@ import { useProduct } from "@/providers/ProductProvider";
 
 function Whishlist() {
     const { whishlist } = useProduct();
+
+    useEffect(() => {
+        document.title = "EzStore — Wishlist";
+    }, []);
+
     return (
         <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-2">

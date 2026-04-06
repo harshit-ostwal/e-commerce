@@ -1,5 +1,5 @@
 import { PackageSearch } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLoaderData, useParams } from "react-router";
 import ProductCard from "@/components/common/ProductCard";
 import ProductOptions from "@/components/common/ProductOptions";
@@ -28,6 +28,10 @@ function Category() {
     const { category } = useParams();
 
     const [search, setSearch] = useState("");
+
+    useEffect(() => {
+        document.title = `EzStore — ${toTitleCase(category)}`;
+    }, [category]);
     const [sortBy, setSortBy] = useState("default");
     const [stockFilters, setStockFilters] = useState([]);
 

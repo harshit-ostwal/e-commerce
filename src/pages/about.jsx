@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Heading } from "@/components/ui/Headings";
 import { Separator } from "@/components/ui/separator";
 import { aboutStats, aboutValues } from "@/constants/about";
 
 function About() {
+    useEffect(() => {
+        document.title = "EzStore — About";
+    }, []);
+
     return (
         <div className="flex flex-col gap-20 py-20">
             <div className="flex flex-col items-center gap-2 text-center">

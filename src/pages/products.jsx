@@ -1,5 +1,5 @@
 import { PackageSearch } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import ProductCard from "@/components/common/ProductCard";
 import ProductOptions from "@/components/common/ProductOptions";
@@ -15,6 +15,10 @@ import { Heading } from "@/components/ui/Headings";
 
 function Products() {
     const { allProducts } = useLoaderData();
+
+    useEffect(() => {
+        document.title = "EzStore — Products";
+    }, []);
 
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("default");

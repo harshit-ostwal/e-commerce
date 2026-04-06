@@ -47,6 +47,10 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
+    useEffect(() => {
+        document.title = "EzStore — Profile";
+    }, []);
+
     const profileForm = useForm({
         resolver: zodResolver(ProfileSchema),
         values: {

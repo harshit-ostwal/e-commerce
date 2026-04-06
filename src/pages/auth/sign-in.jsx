@@ -28,6 +28,10 @@ function SignIn() {
     const { signIn } = useAuth();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "EzStore — Sign In";
+    }, []);
+
     const signInForm = useForm({
         resolver: zodResolver(SignInSchema),
         defaultValues: {

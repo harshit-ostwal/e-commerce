@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoaderData } from "react-router";
 import Categories from "@/components/app/Categories";
 import Hero from "@/components/app/Hero";
@@ -8,6 +8,10 @@ import Trust from "@/components/app/Trust";
 
 function App() {
     const { categories, trending, newArrivals, bestSellers } = useLoaderData();
+
+    useEffect(() => {
+        document.title = "EzStore — Home";
+    }, []);
 
     return (
         <div className="flex flex-col gap-20">
