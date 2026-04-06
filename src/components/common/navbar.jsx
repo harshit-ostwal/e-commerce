@@ -176,7 +176,7 @@ function Navbar() {
               </SheetDescription>
             </SheetHeader>
 
-            <ScrollArea className={"w-full h-[72%]"}>
+            <ScrollArea className={"w-full flex-1 min-h-0"}>
               {carts.length === 0 ? (
                 <div className="flex flex-col items-center justify-center gap-4 py-40">
                   <ShoppingBag size={42} className="text-pink-400" />
