@@ -164,12 +164,12 @@ function Navbar() {
               </SheetTitle>
               <SheetDescription asChild>
                 {carts.length > 0 ? (
-                  <Heading size="p" className="text-muted-foreground">
+                  <Heading size="h6" className="text-muted-foreground">
                     You have {totalItems} {totalItems > 1 ? "items" : "item"} in
                     your cart.
                   </Heading>
                 ) : (
-                  <Heading size="p" className="text-muted-foreground">
+                  <Heading size="h6" className="text-muted-foreground">
                     Your cart is empty. Start adding products you like.
                   </Heading>
                 )}
@@ -178,7 +178,7 @@ function Navbar() {
 
             <ScrollArea className={"w-full flex-1 min-h-0"}>
               {carts.length === 0 ? (
-                <div className="flex flex-col items-center justify-center gap-4 py-40">
+                <div className="flex flex-col items-center justify-center gap-4 h-full">
                   <ShoppingBag size={42} className="text-pink-400" />
                   <div className="flex flex-col gap-1 items-center">
                     <Heading size="h5" className="font-medium">
