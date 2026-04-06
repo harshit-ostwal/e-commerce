@@ -3,7 +3,7 @@ import React from "react";
 
 function Loading() {
     return (
-        <div className="flex items-center justify-center h-90">
+        <div className="flex items-center justify-center h-90 min-w-full">
             <Loader2 className="animate-spin" size={32} />
         </div>
     );
