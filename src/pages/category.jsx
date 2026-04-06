@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useParams } from "react-router";
 import ProductCard from "@/components/common/ProductCard";
+import ProductOptions from "@/components/common/ProductOptions";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,12 +10,20 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Heading } from "@/components/ui/Headings";
-import ProductOptions from "@/components/common/ProductOptions";
 import { PackageSearch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-function Products() {
+function toTitleCase(str) {
+  return str
+    .replace(/-/g, " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+function Category() {
   const { allProducts } = useLoaderData();
+  const { category } = useParams();
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("default");
@@ -88,14 +97,32 @@ function Products() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Products</BreadcrumbPage>
+              <Link
+                to="/products"
+                className="text-muted-foreground hover:text-foreground duration-300"
+              >
+                Products
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <Link
+                to="/products/categories"
+                className="text-muted-foreground hover:text-foreground duration-300"
+              >
+                Categories
+              </Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{toTitleCase(category)}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <Heading size="h3" className={"font-semibold"}>
-          All Products
+          {toTitleCase(category)}
         </Heading>
-      </div>  
+      </div>
 
       <ProductOptions
         count={displayedProducts.length}
@@ -133,4 +160,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Category;

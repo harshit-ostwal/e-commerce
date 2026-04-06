@@ -103,7 +103,7 @@ function DropdownMenuRadioItem({ className, children, ...props }) {
         <DropdownMenuPrimitive.RadioItem
             data-slot="dropdown-menu-radio-item"
             className={cn(
-                "relative flex cursor-default items-center gap-2 rounded-2xl py-2 pr-2 pl-8 text-sm outline-hidden select-none focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+                "relative flex cursor-default items-center gap-2 rounded-2xl py-2 pr-2 pl-8 text-base outline-hidden select-none focus:bg-muted data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
                 className
             )}
             {...props}
