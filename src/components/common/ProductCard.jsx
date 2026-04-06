@@ -148,7 +148,6 @@ function ProductCard({ product }) {
                 />
                 <Button
                   variant="default"
-                  className={"w-full"}
                   onClick={() => setOpen(true)}
                 >
                   Go to Cart

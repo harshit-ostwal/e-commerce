@@ -246,7 +246,6 @@ function ProductDetails() {
                     />
                     <Button
                       variant="default"
-                      className={"w-full"}
                       onClick={() => setOpen(true)}
                     >
                       Go to Cart
