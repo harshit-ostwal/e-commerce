@@ -82,7 +82,7 @@ function Navbar() {
             <SheetDescription></SheetDescription>
           </SheetHeader>
 
-          <div className="flex flex-col gap-10 items-center justify-center-safe h-full">
+          <div className="flex flex-col gap-10 items-center justify-center-safe py-20">
             {Sitemap.map((item, idx) => (
               <SheetClose asChild key={idx}>
                 <Link key={idx} to={item.path}>
@@ -152,7 +152,7 @@ function Navbar() {
               </Heading>
             </Button>
           </SheetTrigger>
-          <SheetContent showCloseButton className="flex flex-col gap-4">
+          <SheetContent showCloseButton className="flex flex-col gap-4 min-w-full">
             <SheetHeader>
               <SheetTitle asChild>
                 <Heading
