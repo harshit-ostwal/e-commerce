@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import {
   getAllProducts,
@@ -10,23 +9,18 @@ import {
 } from "@/api/products.js";
 import Loading from "@/components/common/Loading.jsx";
 import MainLayout from "@/layouts/MainLayout.jsx";
+import About from "@/pages/about.jsx";
+import App from "@/pages/app.jsx";
+import Contact from "@/pages/contact.jsx";
+import ProductDetails from "@/pages/product-details.jsx";
+import Products from "@/pages/products.jsx";
+import Profile from "@/pages/profile.jsx";
+import Whishlist from "@/pages/whislist.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
-
-const About = lazy(() => import("@/pages/about.jsx"));
-const App = lazy(() => import("@/pages/app.jsx"));
-const Categories = lazy(() => import("@/pages/categories.jsx"));
-const Category = lazy(() => import("@/pages/category.jsx"));
-const Contact = lazy(() => import("@/pages/contact.jsx"));
-const ProductDetails = lazy(() => import("@/pages/product-details.jsx"));
-const Products = lazy(() => import("@/pages/products.jsx"));
-const Profile = lazy(() => import("@/pages/profile.jsx"));
-const Whishlist = lazy(() => import("@/pages/whislist.jsx"));
-const SignIn = lazy(() => import("../pages/auth/sign-in.jsx"));
-const SignUp = lazy(() => import("../pages/auth/sign-up.jsx"));
-
-const SuspenseWrapper = ({ children }) => (
-  <Suspense fallback={<Loading />}>{children}</Suspense>
-);
+import SignIn from "../pages/auth/sign-in.jsx";
+import SignUp from "../pages/auth/sign-up.jsx";
+import Category from "@/pages/category.jsx";
+import Categories from "@/pages/categories.jsx";
 
 function AppRoutes() {
   const router = createBrowserRouter([
@@ -45,19 +39,10 @@ function AppRoutes() {
                 getTrendingProducts({ limit: 10, skip: 125 }),
                 getTrendingProducts({ limit: 10, skip: 155 }),
               ]);
-            return {
-              categories,
-              trending,
-              newArrivals,
-              bestSellers,
-            };
+            return { categories, trending, newArrivals, bestSellers };
           },
           hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <App />
-            </SuspenseWrapper>
-          ),
+          element: <App />,
         },
         {
           path: "categories",
@@ -66,11 +51,7 @@ function AppRoutes() {
             return { categories };
           },
           hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <Categories />
-            </SuspenseWrapper>
-          ),
+          element: <Categories />,
         },
         {
           path: "products",
@@ -79,11 +60,7 @@ function AppRoutes() {
             return { allProducts };
           },
           hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <Products />
-            </SuspenseWrapper>
-          ),
+          element: <Products />,
         },
         {
           path: "products/category/:category",
@@ -92,11 +69,7 @@ function AppRoutes() {
             return { allProducts };
           },
           hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <Category />
-            </SuspenseWrapper>
-          ),
+          element: <Category />,
         },
         {
           path: "products/:id",
@@ -108,52 +81,28 @@ function AppRoutes() {
             return { limitedProducts, product };
           },
           hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <ProductDetails />
-            </SuspenseWrapper>
-          ),
+          element: <ProductDetails />,
         },
         {
           path: "my",
-          hydrateFallbackElement: <Loading />,
           children: [
             {
               path: "whishlist",
-              hydrateFallbackElement: <Loading />,
-              element: (
-                <SuspenseWrapper>
-                  <Whishlist />
-                </SuspenseWrapper>
-              ),
+              element: <Whishlist />,
             },
             {
               path: "profile",
-              hydrateFallbackElement: <Loading />,
-              element: (
-                <SuspenseWrapper>
-                  <Profile />
-                </SuspenseWrapper>
-              ),
+              element: <Profile />,
             },
           ],
         },
         {
           path: "about",
-          element: (
-            <SuspenseWrapper>
-              <About />
-            </SuspenseWrapper>
-          ),
+          element: <About />,
         },
         {
           path: "contact",
-          hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <Contact />
-            </SuspenseWrapper>
-          ),
+          element: <Contact />,
         },
         {
           path: "*",
@@ -168,21 +117,11 @@ function AppRoutes() {
       children: [
         {
           path: "sign-in",
-          hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <SignIn />
-            </SuspenseWrapper>
-          ),
+          element: <SignIn />,
         },
         {
           path: "sign-up",
-          hydrateFallbackElement: <Loading />,
-          element: (
-            <SuspenseWrapper>
-              <SignUp />
-            </SuspenseWrapper>
-          ),
+          element: <SignUp />,
         },
       ],
     },
