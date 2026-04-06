@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router";
 import Footer from "@/components/common/footer";
 import Navbar from "@/components/common/navbar";
@@ -7,6 +7,10 @@ import { useAuth } from "@/providers/AuthProvider";
 function MainLayout() {
     const { loggedInUser } = useAuth();
     const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [location.pathname]);
 
     if (!loggedInUser) {
         return (
