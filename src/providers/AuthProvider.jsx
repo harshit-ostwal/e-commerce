@@ -7,6 +7,7 @@ import {
   getLocalStorageItem,
   setLocalStorageItem,
 } from "@/utils/localStorage.utils";
+import { useProduct } from "./ProductProvider";
 
 const AuthContext = createContext();
 
@@ -75,10 +76,12 @@ const AuthProvider = ({ children }) => {
     return true;
   };
 
-  const signOut = () => {
+  const signOut = (msg = true) => {
     setLoggedInUser(null);
     setLocalStorageItem(LocalStorageKeys.LOGGED_IN_USER, null);
-    toast.success("Signed out successfully!");
+    if (msg) {
+      toast.success("Signed out successfully!");
+    }
   };
 
   const updateProfile = async (data) => {
@@ -102,7 +105,6 @@ const AuthProvider = ({ children }) => {
 
   const deleteAccount = () => {
     const updatedUsers = users.filter((user) => user.id !== loggedInUser.id);
-
     setUsers(updatedUsers);
     setLoggedInUser(null);
     setLocalStorageItem(LocalStorageKeys.USERS, updatedUsers);

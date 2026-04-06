@@ -57,7 +57,7 @@ function SheetContent({
                     <SheetPrimitive.Close data-slot="sheet-close" asChild>
                         <Button
                             variant="none"
-                            className="absolute top-7 right-4"
+                            className="absolute top-8 right-4"
                             size="icon-xl"
                         >
                             <XIcon />
@@ -74,7 +74,7 @@ function SheetHeader({ className, ...props }) {
     return (
         <div
             data-slot="sheet-header"
-            className={cn("flex flex-col gap-1.5 py-7 px-6", className)}
+            className={cn("flex flex-col gap-1.5 pt-7 px-6", className)}
             {...props}
         />
     );
@@ -84,7 +84,7 @@ function SheetFooter({ className, ...props }) {
     return (
         <div
             data-slot="sheet-footer"
-            className={cn("mt-auto flex flex-col gap-2 p-6", className)}
+            className={cn("mt-auto flex flex-col gap-2 px-6", className)}
             {...props}
         />
     );

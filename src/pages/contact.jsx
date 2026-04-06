@@ -1,229 +1,164 @@
-import { Heart, ShoppingCart, Star, Zap } from "lucide-react";
-import React from "react";
-import { useLoaderData } from "react-router";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+import { Send } from "lucide-react";
+import { toast } from "sonner";
 import { Heading } from "@/components/ui/Headings";
-import { ImageComp } from "@/components/ui/image";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
+import { contactInfo } from "@/constants/contact";
 
-const capitalize = (str) =>
-    str
-        .split(" ")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" ");
+const initialState = { name: "", email: "", subject: "", message: "" };
 
 function Contact() {
-    const { product } = useLoaderData();
+    const [form, setForm] = useState(initialState);
+    const [loading, setLoading] = useState(false);
 
-    const {
-        title,
-        thumbnail,
-        images,
-        price,
-        discountPercentage,
-        rating,
-        description,
-        availabilityStatus,
-        category,
-        reviews,
-        tags,
-        sku,
-        stock,
-        weight,
-        minimumOrderQuantity,
-        shippingInformation,
-        returnPolicy,
-        warrantyInformation,
-    } = product;
+    function handleChange(e) {
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    }
 
-    const discountedPrice = (
-        price -
-        (price * discountPercentage) / 100
-    ).toFixed(2);
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+            toast.error("Please fill in all required fields.");
+            return;
+        }
+
+        setLoading(true);
+        // Simulate async send
+        setTimeout(() => {
+            setLoading(false);
+            setForm(initialState);
+            toast.success("Message sent! We'll get back to you soon.");
+        }, 1200);
+    }
 
     return (
-        <div className="flex flex-col gap-16">
-            {/* Top Section */}
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-start">
-                {/* Images — full-size stacked vertically */}
-                <div className="flex flex-1 flex-col gap-4">
-                    {[thumbnail, ...images].map((img, i) => (
+        <div className="flex flex-col gap-20 pb-10">
+            {/* Hero */}
+            <div className="flex flex-col items-center gap-6 text-center">
+                <span className="text-sm font-semibold uppercase tracking-widest text-amber-500">
+                    Contact
+                </span>
+                <Heading size="h2" className="max-w-2xl text-center">
+                    We&apos;d love to hear from you
+                </Heading>
+                <Heading size="p" className="max-w-xl text-center">
+                    Have a question, feedback, or just want to say hello? Fill
+                    out the form below and our team will respond within 24
+                    hours.
+                </Heading>
+            </div>
+
+            {/* Contact info cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {contactInfo.map(({ icon: Icon, color, bg, label, value, href }) => (
+                    <a
+                        key={label}
+                        href={href}
+                        className="flex flex-col items-center gap-4 rounded-2xl border border-border p-6 text-center transition-colors hover:bg-muted/50"
+                    >
                         <div
-                            key={i}
-                            className="aspect-5/4 w-full overflow-hidden rounded-4xl bg-muted"
+                            className={`w-12 h-12 rounded-xl ${bg} flex items-center justify-center`}
                         >
-                            <ImageComp
-                                src={img}
-                                alt={`${title} ${i + 1}`}
-                                className="h-full w-full object-contain"
-                            />
+                            <Icon className={color} size={22} />
                         </div>
-                    ))}
-                </div>
-
-                {/* Info — sticky on the right */}
-                <div className="flex flex-1 flex-col gap-5 lg:sticky lg:top-6 lg:self-start">
-                    {/* Badges */}
-                    <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline">{capitalize(category)}</Badge>
-                        <Badge
-                            variant={
-                                availabilityStatus === "In Stock"
-                                    ? "success"
-                                    : availabilityStatus === "Out of Stock"
-                                      ? "destructive"
-                                      : "warning"
-                            }
-                        >
-                            {capitalize(availabilityStatus)}
-                        </Badge>
-                    </div>
-
-                    {/* Title */}
-                    <Heading size="h3" className="font-semibold">
-                        {title}
-                    </Heading>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-1">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <Star
-                                    key={i}
-                                    className={cn(
-                                        rating > i
-                                            ? "fill-yellow-500 stroke-yellow-500"
-                                            : "fill-muted stroke-muted-foreground/30"
-                                    )}
-                                />
-                            ))}
+                        <div className="flex flex-col gap-1">
+                            <Heading
+                                size="h6"
+                                className="font-semibold text-foreground"
+                            >
+                                {label}
+                            </Heading>
+                            <Heading size="small" className="text-muted-foreground">
+                                {value}
+                            </Heading>
                         </div>
-                        <Heading size="p" className="text-muted-foreground">
-                            {rating} ({reviews.length})
-                        </Heading>
-                    </div>
-
-                    {/* Description */}
-                    <Heading size="p">{description}</Heading>
-
-                    {/* Price */}
-                    <div className="flex items-center gap-4">
-                        <Heading
-                            size="h4"
-                            className="text-primary font-semibold"
-                        >
-                            ${discountedPrice}
-                        </Heading>
-                        <Heading
-                            size="h6"
-                            className="text-muted-foreground line-through"
-                        >
-                            ${price}
-                        </Heading>
-                        <Badge variant="warning">-{discountPercentage}%</Badge>
-                    </div>
-
-                    <Separator />
-
-                    {/* Details Grid */}
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                        {[
-                            { label: "SKU", value: sku },
-                            { label: "Stock", value: `${stock} units` },
-                            {
-                                label: "Min. Order",
-                                value: `${minimumOrderQuantity} units`,
-                            },
-                            { label: "Weight", value: `${weight} kg` },
-                            { label: "Shipping", value: shippingInformation },
-                            { label: "Returns", value: returnPolicy },
-                            { label: "Warranty", value: warrantyInformation },
-                        ].map(({ label, value }) => (
-                            <div key={label}>
-                                <Heading
-                                    size="small"
-                                    className="text-muted-foreground"
-                                >
-                                    {label}
-                                </Heading>
-                                <Heading size="small" className="font-medium">
-                                    {value}
-                                </Heading>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
-                        {tags.map((tag) => (
-                            <Badge key={tag} variant="secondary">
-                                {capitalize(tag)}
-                            </Badge>
-                        ))}
-                    </div>
-
-                    <Separator />
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline" size="lg" className="flex-1">
-                            <ShoppingCart /> Add to Cart
-                        </Button>
-                        <Button variant="default" size="lg" className="flex-1">
-                            <Zap /> Buy Now
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="icon-lg"
-                            className="hover:bg-pink-200"
-                        >
-                            <Heart />
-                        </Button>
-                    </div>
-                </div>
+                    </a>
+                ))}
             </div>
 
             <Separator />
 
-            {/* Reviews */}
-            <div className="flex flex-col gap-6">
-                <Heading size="h5">Customer Reviews</Heading>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {reviews.map((review, i) => (
-                        <div
-                            key={i}
-                            className="flex flex-col gap-3 rounded-4xl border p-6"
-                        >
-                            <div className="flex items-center justify-between">
-                                <Heading size="h6" className="font-semibold">
-                                    {review.reviewerName}
-                                </Heading>
-                                <div className="flex items-center gap-1">
-                                    {Array.from({ length: 5 }).map((_, j) => (
-                                        <Star
-                                            key={j}
-                                            size={14}
-                                            className={cn(
-                                                review.rating > j
-                                                    ? "fill-yellow-500 stroke-yellow-500"
-                                                    : "fill-muted stroke-muted-foreground/30"
-                                            )}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                            <Heading size="p">{review.comment}</Heading>
-                            <Heading
-                                size="small"
-                                className="text-muted-foreground"
-                            >
-                                {new Date(review.date).toLocaleDateString()}
-                            </Heading>
-                        </div>
-                    ))}
+            {/* Form */}
+            <div className="flex flex-col items-center gap-10">
+                <div className="flex flex-col items-center gap-3 text-center">
+                    <Heading size="h3">Send us a message</Heading>
+                    <Heading size="p" className="text-center">
+                        We read every message and reply as fast as we can.
+                    </Heading>
                 </div>
+
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full max-w-2xl flex flex-col gap-5"
+                >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-2">
+                            <Label htmlFor="name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
+                            <Input
+                                id="name"
+                                name="name"
+                                placeholder="Jane Doe"
+                                value={form.name}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <Label htmlFor="email">
+                                Email <span className="text-destructive">*</span>
+                            </Label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder="jane@example.com"
+                                value={form.email}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="subject">Subject</Label>
+                        <Input
+                            id="subject"
+                            name="subject"
+                            placeholder="Order issue, product question…"
+                            value={form.subject}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="message">
+                            Message <span className="text-destructive">*</span>
+                        </Label>
+                        <Textarea
+                            id="message"
+                            name="message"
+                            placeholder="Tell us how we can help…"
+                            rows={6}
+                            value={form.message}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <Button
+                        type="submit"
+                        size="lg"
+                        className="self-end"
+                        disabled={loading}
+                    >
+                        <Send size={18} />
+                        {loading ? "Sending…" : "Send Message"}
+                    </Button>
+                </form>
             </div>
         </div>
     );

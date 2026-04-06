@@ -39,9 +39,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useProduct } from "@/providers/ProductProvider";
 
 function Profile() {
   const { loggedInUser, signOut, updateProfile, deleteAccount } = useAuth();
+  const { clearCart, clearWhishlist } = useProduct();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -220,11 +222,15 @@ function Profile() {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 variant="destructive"
+                isLoading={loading}
+                disabled={loading}
                 onClick={() => {
                   setLoading(true);
                   setTimeout(() => {
+                    signOut(false);
+                    clearCart();
+                    clearWhishlist();
                     deleteAccount();
-                    signOut();
                     setLoading(false);
                   }, 1000);
                 }}
