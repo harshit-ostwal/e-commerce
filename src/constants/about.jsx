@@ -1,4 +1,13 @@
-import { Heart, Rocket, ShieldCheck, Star, Users, Globe, Award, TrendingUp } from "lucide-react";
+import {
+    Award,
+    Globe,
+    Heart,
+    Rocket,
+    ShieldCheck,
+    Star,
+    TrendingUp,
+    Users,
+} from "lucide-react";
 
 export const aboutStats = [
     { icon: Users, value: "10,000+", label: "Happy Customers" },

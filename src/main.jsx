@@ -6,10 +6,10 @@ import { ProductProvider } from "./providers/ProductProvider";
 import AppRoutes from "./routes/AppRoutes.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <ProductProvider>
-      <AppRoutes />
-    </ProductProvider>
-    <Toaster />
-  </AuthProvider>,
+    <AuthProvider>
+        <ProductProvider>
+            <AppRoutes />
+        </ProductProvider>
+        <Toaster />
+    </AuthProvider>
 );
