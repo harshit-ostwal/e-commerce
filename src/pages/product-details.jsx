@@ -79,7 +79,7 @@ function ProductDetails() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-20 min-h-screen">
+        <div className="flex flex-col gap-10 min-h-screen">
             <div className="flex flex-col gap-4">
                 <Breadcrumb>
                     <BreadcrumbList>
